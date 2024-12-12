@@ -21,6 +21,10 @@ oc.atac<-readRDS('oc/data/scatac/oc.rds')
 Idents(oc.atac)<-'celltype'
 rcc.atac<-readRDS('rcc/data/scatac/rcc.rds')
 Idents(rcc.atac)<-'celltype'
+lc<-readRDS('luad/data/scatac/luad.rds')
+Idents(lc)<-'celltype'
+bc<-readRDS('brca/data/scatac/brca1.rds')
+Idents(bc)<-'celltype'
 #get embedding
 umap_cc.atac = cc.atac@reductions$umap@cell.embeddings %>%  
   as.data.frame() %>% 
@@ -44,20 +48,20 @@ for(umap in c(umap_cc.atac,umap_ec.atac,umap_oc.atac,umap_rcc.atac)){
   p<-ggplot(umap,aes(x= UMAP_1 , y = UMAP_2 ,color = cell_type)) +  
     geom_point(size = 1 , alpha =1 )  +  
     scale_color_manual(values = allcolour)+
-    theme(panel.grid.major = element_blank(), #Ö÷Íø¸ñÏß
-          panel.grid.minor = element_blank(), #´ÎÍø¸ñÏß
-          panel.border = element_blank(), #±ß¿ò
-          axis.title = element_blank(),  #Öá±êÌâ
-          axis.text = element_blank(), # ÎÄ±¾
+    theme(panel.grid.major = element_blank(), #ä¸»ç½‘æ ¼çº¿
+          panel.grid.minor = element_blank(), #æ¬¡ç½‘æ ¼çº¿
+          panel.border = element_blank(), #è¾¹æ¡†
+          axis.title = element_blank(),  #è½´æ ‡é¢˜
+          axis.text = element_blank(), # æ–‡æœ¬
           axis.ticks = element_blank(),
-          panel.background = element_rect(fill = 'white'), #±³¾°É«
+          panel.background = element_rect(fill = 'white'), #èƒŒæ™¯è‰²
           plot.background=element_rect(fill="white"))+
     theme(
-      legend.title = element_blank(), #È¥µôlegend.title 
+      legend.title = element_blank(), #åŽ»æŽ‰legend.title 
       legend.key=element_rect(fill='white'), #
-      legend.text = element_text(size=20), #ÉèÖÃlegend±êÇ©µÄ´óÐ¡
-      legend.key.size=unit(1,'cm') ) +  # ÉèÖÃlegend±êÇ©Ö®¼äµÄ´óÐ¡
-    guides(color = guide_legend(override.aes = list(size=5)))+ #ÉèÖÃlegendÖÐ µãµÄ´óÐ¡
+      legend.text = element_text(size=20), #è®¾ç½®legendæ ‡ç­¾çš„å¤§å°
+      legend.key.size=unit(1,'cm') ) +  # è®¾ç½®legendæ ‡ç­¾ä¹‹é—´çš„å¤§å°
+    guides(color = guide_legend(override.aes = list(size=5)))+ #è®¾ç½®legendä¸­ ç‚¹çš„å¤§å°
     geom_segment(aes(x = min(umap$UMAP_1) , y = min(umap$UMAP_2) ,
                    xend = min(umap$UMAP_1) +3, yend = min(umap$UMAP_2) ),
                colour = "black", size=1,arrow = arrow(length = unit(0.3,"cm")))+ 
@@ -107,20 +111,20 @@ for(umap in c(umap_cc.atac,umap_ec.atac,umap_oc.atac,umap_rcc.atac)){
   p<-ggplot(umap,aes(x= UMAP_1 , y = UMAP_2 ,color = cell_type)) +  
     geom_point(size = 1 , alpha =1 )  +  
     scale_color_manual(values = allcolour)+
-    theme(panel.grid.major = element_blank(), #Ö÷Íø¸ñÏß
-          panel.grid.minor = element_blank(), #´ÎÍø¸ñÏß
-          panel.border = element_blank(), #±ß¿ò
-          axis.title = element_blank(),  #Öá±êÌâ
-          axis.text = element_blank(), # ÎÄ±¾
+    theme(panel.grid.major = element_blank(), #ä¸»ç½‘æ ¼çº¿
+          panel.grid.minor = element_blank(), #æ¬¡ç½‘æ ¼çº¿
+          panel.border = element_blank(), #è¾¹æ¡†
+          axis.title = element_blank(),  #è½´æ ‡é¢˜
+          axis.text = element_blank(), # æ–‡æœ¬
           axis.ticks = element_blank(),
-          panel.background = element_rect(fill = 'white'), #±³¾°É«
+          panel.background = element_rect(fill = 'white'), #èƒŒæ™¯è‰²
           plot.background=element_rect(fill="white"))+
     theme(
-      legend.title = element_blank(), #È¥µôlegend.title 
+      legend.title = element_blank(), #åŽ»æŽ‰legend.title 
       legend.key=element_rect(fill='white'), #
-      legend.text = element_text(size=20), #ÉèÖÃlegend±êÇ©µÄ´óÐ¡
-      legend.key.size=unit(1,'cm') ) +  # ÉèÖÃlegend±êÇ©Ö®¼äµÄ´óÐ¡
-    guides(color = guide_legend(override.aes = list(size=5)))+ #ÉèÖÃlegendÖÐ µãµÄ´óÐ¡
+      legend.text = element_text(size=20), #è®¾ç½®legendæ ‡ç­¾çš„å¤§å°
+      legend.key.size=unit(1,'cm') ) +  # è®¾ç½®legendæ ‡ç­¾ä¹‹é—´çš„å¤§å°
+    guides(color = guide_legend(override.aes = list(size=5)))+ #è®¾ç½®legendä¸­ ç‚¹çš„å¤§å°
     geom_segment(aes(x = min(umap$UMAP_1) , y = min(umap$UMAP_2) ,
                      xend = min(umap$UMAP_1) +3, yend = min(umap$UMAP_2) ),
                  colour = "black", size=1,arrow = arrow(length = unit(0.3,"cm")))+ 
